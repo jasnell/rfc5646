@@ -11,6 +11,8 @@ or.. using bower
 bower install rfc5646
 ```
 
+or.. in the browser
+
 ```html
 <html>
 <head>
