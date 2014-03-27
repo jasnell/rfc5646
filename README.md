@@ -6,6 +6,11 @@
 npm install rfc5646
 ```
 
+or.. using bower
+``` bash
+bower install rfc5646
+```
+
 ```html
 <html>
 <head>
