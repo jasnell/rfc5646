@@ -1,0 +1,20 @@
+{
+  "name": "rfc5646",
+  "version": "0.0.1",
+  "description": "RFC 5646 Language Tags Implementation",
+  "keywords": [
+    "rfc5646", "languagetag"
+  ],
+  "maintainers": [
+    "James M Snell <jasnell@us.ibm.com> (http://www.chmod777self.com)"
+  ],
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-jshint": "~0.8.0",
+    "grunt-contrib-nodeunit": "~0.3.2",
+    "grunt-contrib-uglify": "~0.4.0",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-jsdoc": "^0.5.4"
+  },
+  "main": "./dist/rfc5646.js"
+}
