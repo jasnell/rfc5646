@@ -1,6 +1,3 @@
 
-node_modules/.bin/grunt-jsdoc
+node_modules
 
-node_modules/grunt-contrib-jshint/node_modules/jshint/node_modules/exit/test/fixtures/100-stderr.txt
-
-node_modules/grunt-contrib-jshint/node_modules/jshint/node_modules/exit/test/fixtures/10-stdout.txt
