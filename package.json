@@ -14,5 +14,9 @@
     "grunt-contrib-jshint": "~0.8.0",
     "grunt-jsdoc": "^0.5.4"
   },
-  "main": "./src/main.js"
+  "main": "./src/main.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jasnell/rfc5646"
+  }
 }
