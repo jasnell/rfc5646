@@ -1,18 +1,21 @@
 {
   "name": "rfc5646",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "RFC 5646 Language Tags Implementation",
   "license": "Public Domain",
   "keywords": [
-    "rfc5646", "languagetag"
+    "rfc5646",
+    "languagetag"
   ],
   "maintainers": [
     "James M Snell <jasnell@us.ibm.com> (http://www.chmod777self.com)"
   ],
+  "scripts": {
+    "test": "mocha"
+  },
   "devDependencies": {
-    "grunt": "~0.4.2",
-    "grunt-contrib-jshint": "~0.8.0",
-    "grunt-jsdoc": "^0.5.4"
+    "async": "^1.4.0",
+    "mocha": "^2.2.5"
   },
   "main": "./src/main.js",
   "repository": {

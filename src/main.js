@@ -49,8 +49,8 @@ function def(prop,value) {
     value: value
   });
 }
- 
- /** 
+
+ /**
   * @enum {number}
   * @memberOf LanguageTag
   * @description The Subtag Type
@@ -219,7 +219,8 @@ function LanguageTag(_tag) {
       default:
         if (p.singleton) {
           if (p.privateUse) {
-            def.call(this,'privateuse',p);
+            if (!this.privateuse)
+              def.call(this,'privateuse',p);
           } else if (p.extension) {
             if (!exts) exts = {};
             exts[p.token] = p;
@@ -311,8 +312,8 @@ LanguageTag.prototype = {
     if (typeof callback !== 'function')
       throw new Error('A callback function must be provided');
     var i = this.iterator;
-    while(!i.done) { 
-      callback(i.next().value); 
+    while(!i.done) {
+      callback(i.next().value);
     }
   }
 };

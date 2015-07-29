@@ -1,8 +1,10 @@
 # RFC 5646 Language Tag Implementation
 
-Basic Language Tag handling. Does not attempt to do validation against 
-the registry. If you need a more complete implementation, look at 
+Basic Language Tag handling. Does not attempt to do validation against
+the registry. If you need a more complete implementation, look at
 https://www.npmjs.com/package/language-tags by https://www.npmjs.com/~mcg
+
+License: Public Domain
 
 ## Installation
 
