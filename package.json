@@ -1,6 +1,6 @@
 {
   "name": "rfc5646",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "RFC 5646 Language Tags Implementation",
   "license": "Public Domain",
   "keywords": [

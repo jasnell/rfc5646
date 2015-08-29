@@ -1,7 +1,7 @@
 'use strict';
 
 // source: http://www.langtag.net/test-suites.html
-var valid = ['fr',
+const valid = ['fr',
 'fr-Latn',
 'fr-fra',
 'fr-Latn-FR',
@@ -112,7 +112,7 @@ var valid = ['fr',
 
 ];
 
-var invalid = [
+const invalid = [
 'f',
 'f-Latn',
 'fr-Latn-F',
@@ -152,7 +152,7 @@ var invalid = [
 'fr-shadok'
 ];
 
-var wellformed = [
+const wellformed = [
   'en-GB-oed',
   'zh-cmn-Hans',
   'no-bok',
@@ -505,9 +505,9 @@ var wellformed = [
   'rby-w'
 ];
 
-var LanguageTag = require('../');
-var async = require('async');
-var assert = require('assert');
+const LanguageTag = require('../');
+const async = require('async');
+const assert = require('assert');
 
 function testParse(tag) {
   return function() {

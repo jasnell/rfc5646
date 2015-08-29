@@ -24,8 +24,8 @@
  *  console.log(n.value.toString());
  * }
  **/
-
-var nativeFind = Array.prototype.find;
+'use strict';
+const nativeFind = Array.prototype.find;
 
 function find(obj, predicate) {
   if (obj === undefined || obj === null) {
@@ -42,20 +42,20 @@ function find(obj, predicate) {
   }
 }
 
-function def(prop,value) {
+function def(obj, prop,value) {
   Object.defineProperty(
-    this, prop,{
+    obj, prop,{
     enumerable: true,
     value: value
   });
 }
 
- /**
-  * @enum {number}
-  * @memberOf LanguageTag
-  * @description The Subtag Type
-  **/
- var Types = {
+/**
+ * @enum {number}
+ * @memberOf LanguageTag
+ * @description The Subtag Type
+**/
+const Types = {
    /** Subtag is equal to '*' (value 0x0) **/
    Wildcard: undefined,
    Other : 0x0,
@@ -79,23 +79,19 @@ function def(prop,value) {
    Invalid: 0xFF
 };
 
-var _wild    = {r:/^\*$/i,v:Types.Wildcard},
-    _pvt     = {r:/^x$/i,v:Types.PrivateUse|Types.Singleton},
-    _ext     = {r:/^[a-wy-z]$/i,v:Types.Extension|Types.Singleton},
-    _lang    = {r:/^[a-z]{2,3}$/i,v:Types.Language},
-    _extlang = {r:/^[a-z]{3}$/i,v:Types.ExtLang},
-    _script  = {r:/^[a-z]{4}$/i,v:Types.Script},
-    _region  = {r:/^[a-z]{2}|[0-9]{3}$/i,v:Types.Region},
-    _variant = {r:/^[a-z0-9]{5,8}|[0-9][a-z0-9]{3}$/i,v:Types.Variant},
-    _other   = {r:/^[a-z0-9]{2,8}$/i,v:Types.Other}
-    ;
+const _wild    = {r:/^\*$/i,v:Types.Wildcard},
+      _pvt     = {r:/^x$/i,v:Types.PrivateUse|Types.Singleton},
+      _ext     = {r:/^[a-wy-z]$/i,v:Types.Extension|Types.Singleton},
+      _lang    = {r:/^[a-z]{2,3}$/i,v:Types.Language},
+      _extlang = {r:/^[a-z]{3}$/i,v:Types.ExtLang},
+      _script  = {r:/^[a-z]{4}$/i,v:Types.Script},
+      _region  = {r:/^[a-z]{2}|[0-9]{3}$/i,v:Types.Region},
+      _variant = {r:/^[a-z0-9]{5,8}|[0-9][a-z0-9]{3}$/i,v:Types.Variant},
+      _other   = {r:/^[a-z0-9]{2,8}$/i,v:Types.Other}
+      ;
 
 function flag(a,b) {
   return (a&b)==b;
-}
-
-function test(t) {
-  return t.r.test(this);
 }
 
 function countext(previous) {
@@ -120,7 +116,9 @@ function extpvtchk(v,previous) {
 
 function classify(token, previous) {
   var ret;
-  var _test = test.bind(token);
+  var _test = function(t) {
+    return t.r.test(token);
+  };
   if (token.length === 0)
     return Types.Invalid;
   if (!previous) {
@@ -151,16 +149,16 @@ function classify(token, previous) {
 function Subtag(token, previous) {
   if (!(this instanceof Subtag))
     return new Subtag(token, previous);
-  def.call(this,'token',token.toLowerCase());
+  def(this,'token',token.toLowerCase());
   if (previous) {
-    def.call(previous,'next',this);
-    def.call(this,'previous',previous);
+    def(previous,'next',this);
+    def(this,'previous',previous);
   }
-  def.call(this,'type',classify(token,previous));
-  def.call(this,'wild',this.type === undefined);
-  def.call(this,'singleton',flag(this.type,Types.Singleton));
-  def.call(this,'extension',flag(this.type,Types.Extension));
-  def.call(this,'privateUse',flag(this.type,Types.PrivateUse));
+  def(this,'type',classify(token,previous));
+  def(this,'wild',this.type === undefined);
+  def(this,'singleton',flag(this.type,Types.Singleton));
+  def(this,'extension',flag(this.type,Types.Extension));
+  def(this,'privateUse',flag(this.type,Types.PrivateUse));
 }
 Subtag.prototype = {
   toString: function() {
@@ -199,28 +197,28 @@ function LanguageTag(_tag) {
   var exts;
   var wild = false;
   for (var n = 0, l = splits.length; n < l; n++) {
-    p = Subtag(splits[n], p);
+    p = new Subtag(splits[n], p);
     switch(p.type) {
       case Types.Language:
-        def.call(this,'language',p.toString());
+        def(this,'language',p.toString());
         break;
       case Types.Region:
-        def.call(this,'region',p.toString());
+        def(this,'region',p.toString());
         break;
       case Types.Script:
-        def.call(this,'script',p.toString());
+        def(this,'script',p.toString());
         break;
       case Types.Variant:
-        def.call(this,'variant',p.toString());
+        def(this,'variant',p.toString());
         break;
       case Types.Invalid:
-        def.call(this,'invalid',true);
+        def(this,'invalid',true);
         break;
       default:
         if (p.singleton) {
           if (p.privateUse) {
             if (!this.privateuse)
-              def.call(this,'privateuse',p);
+              def(this,'privateuse',p);
           } else if (p.extension) {
             if (!exts) exts = {};
             exts[p.token] = p;
@@ -231,19 +229,19 @@ function LanguageTag(_tag) {
     }
     f = f||p;
   }
-  if (exts) def.call(this,'extensions',exts);
-  def.call(this,'wild', wild);
-  def.call(this,'length',splits.length);
-  def.call(this,'first',f);
+  if (exts) def(this,'extensions',exts);
+  def(this,'wild', wild);
+  def(this,'length',splits.length);
+  def(this,'first',f);
 }
 LanguageTag.prototype = {
   suitableFor : function(other) {
     if (this.wild) return true;
-    var _other = LanguageTag(other);
-    if (this.language !== _other.language) return false;
-    if (this.region && this.region !== _other.region) return false;
-    if (this.script && this.script !== _other.script) return false;
-    if (this.variant && this.variant !== _other.variant) return false;
+    var _othertag = new LanguageTag(other);
+    if (this.language !== _othertag.language) return false;
+    if (this.region && this.region !== _othertag.region) return false;
+    if (this.script && this.script !== _othertag.script) return false;
+    if (this.variant && this.variant !== _othertag.variant) return false;
     return true;
   },
   valueOf : function() {
