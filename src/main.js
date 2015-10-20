@@ -25,22 +25,6 @@
  * }
  **/
 'use strict';
-const nativeFind = Array.prototype.find;
-
-function find(obj, predicate) {
-  if (obj === undefined || obj === null) {
-    return obj;
-  }
-  if (nativeFind && obj.find === nativeFind) {
-    return obj.find(predicate, context);
-  } else {
-    for (var n = 0, l = obj.length; n < l; n++) {
-      if (predicate(obj[n], n, obj)) {
-        return obj[n];
-      }
-    }
-  }
-}
 
 function def(obj, prop,value) {
   Object.defineProperty(
@@ -122,25 +106,26 @@ function classify(token, previous) {
   if (token.length === 0)
     return Types.Invalid;
   if (!previous) {
-    ret = find([_wild, _pvt, _lang],_test);
+    ret = [_wild, _pvt, _lang].find(_test);
     return ret ? ret.v : Types.Invalid;
   } else {
     switch(previous.type) {
       case Types.Language:
       case Types.ExtLang:
-        ret = find([_wild,_pvt,_ext,_extlang,_script,_region,_variant,_other],_test);
+        ret = [_wild,_pvt,_ext,_extlang,_script,_region,_variant,_other]
+          .find(_test);
         if (!ret) return Types.Invalid;
         return ret.v == Types.ExtLang ?
           (countext(previous) <= 3 ? ret.v : Types.Invalid) :
           extpvtchk(ret.v,previous);
       case Types.Script:
-        ret = find([_wild,_pvt,_ext,_region,_variant,_other],_test);
+        ret = [_wild,_pvt,_ext,_region,_variant,_other].find(_test);
         return ret ? extpvtchk(ret.v,previous): Types.Invalid;
       case Types.Region:
-        ret = find([_wild,_pvt,_ext,_variant,_other],_test);
+        ret = [_wild,_pvt,_ext,_variant,_other].find(_test);
         return ret ? extpvtchk(ret.v,previous) : Types.Invalid;
       default:
-        ret = find([_wild,_pvt,_ext,_other],_test);
+        ret = [_wild,_pvt,_ext,_other].find(_test);
         return ret ? extpvtchk(ret.v,previous) : Types.Invalid;
     }
   }
