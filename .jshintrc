@@ -1,8 +1,0 @@
-{
-  "node": true,
-  "esnext": true,
-  "mocha": true,
-  "globals": {
-    "Symbol": true
-  }
-}
